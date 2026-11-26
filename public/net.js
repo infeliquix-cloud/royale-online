@@ -72,5 +72,5 @@ pf:id=>{pfd={id};tab='pf';tx({t:'prof',id});open('pf')},ch:(sc,to)=>{cur=sc?{sc,
 say:()=>{const i=Q('#ci'),v=i.value.trim();if(!v)return;const sc_=ONL?cs:cur.sc;tx({t:'chat',sc:sc_,to:cur&&cur.to,text:v});i.value=''},
 cb:()=>{if(cb.style.display=='block'){cb.style.display='none';return}cb.innerHTML=`<button class=ib2 onclick="NET.cs('team')">Equipe</button><button class=ib2 onclick="NET.cs('room')">Sala</button><div id=cl></div>${cin()}`;cb.style.display='block';Q('#cl').innerHTML=msgs(cs)},
 cs:s=>{cs=s;Q('#cl').innerHTML=msgs(cs)}};
-window.tx=tx;top();conn();
+window.jumpOnline=()=>{if(ONL)tx({t:"jp"})};window.NETX={get on(){return ONL},set on(v){ONL=v},get rm(){return RMt},set rm(v){RMt=v},get pty(){return pty},tx};window.getME=()=>ME;window.tx=tx;top();conn();
 })();

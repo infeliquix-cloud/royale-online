@@ -48,7 +48,7 @@ ids.forEach(i=>{r.pl[i]={id:i,name:U(i).name,team:p?p.id:autoTeam(r,mode),x:0,y:
 leave(ws){const p=party[pOf[ws.id]],ids=p&&p.lead==ws.id?p.m:[ws.id];ids.forEach(leaveRoom);ids.forEach(refF)},
 mv(ws,m){const r=rooms[rmOf[ws.id]],p=r&&r.pl[ws.id];if(!p||r.st!='play'||!p.alive)return;const now=Date.now(),dt=Math.min(1,(now-p.lt)/1000);p.lt=now;const x=+m.x,z=+m.z;if(!isFinite(x)||!isFinite(z))return;
 if(Math.hypot(x-p.x,z-p.z)>11*dt+.8)return send(ws,{t:'fix',x:p.x,z:p.z});p.x=Math.max(-295,Math.min(295,x));p.z=Math.max(-295,Math.min(295,z));p.y=Math.max(0,Math.min(3,+m.y||0));p.yaw=+m.yaw||0;p.fl=m.f&31},
-rl(ws){const r=rooms[rmOf[ws.id]],p=r&&r.pl[ws.id];if(p&&p.alive&&!p.rl&&p.am<WP[2])p.rl=Date.now()+1500},
+jp(ws){const r=rooms[rmOf[ws.id]],q=r&&r.pl[ws.id];if(!q||r.st!=="play"||!q.alive||(q.fl&128))return;q.fl=(q.fl&~128)|32;q.y=2},rl(ws){const r=rooms[rmOf[ws.id]],p=r&&r.pl[ws.id];if(p&&p.alive&&!p.rl&&p.am<WP[2])p.rl=Date.now()+1500},
 sh(ws,m){const r=rooms[rmOf[ws.id]],p=r&&r.pl[ws.id];if(!p||r.st!='play'||!p.alive)return;const now=Date.now();if(now<p.lf+WP[1]*800||p.rl||p.am<=0)return;
 const o=(m.o||[]).map(Number),d=(m.d||[]).map(Number);if(o.length!=3||d.length!=3||[...o,...d].some(v=>!isFinite(v)))return;if(Math.hypot(o[0]-p.x,o[1]-p.y-1.5,o[2]-p.z)>8)return;const l=Math.hypot(...d);if(!l)return;
 p.lf=now;p.am--;if(p.am<=0)p.rl=now+1500;const sp=WP[4],dr=d.map(v=>v/l+rnd(-1,1)*sp),dl=Math.hypot(...dr),dir=dr.map(v=>v/dl);let best=null,bt=1e9;
