@@ -46,6 +46,7 @@ hit(m){const v=m.v==ME.id?P:RMt[m.v],a=m.a==ME.id?P:RMt[m.a];if(!v)return;v.hp=m
 kill(m){const v=m.v==ME.id?P:RMt[m.v];if(!v||!v.alive)return;v.alive=0;v.dt=0;if(m.a==ME.id&&v!=P){P.k++;killFx(v)}},
 dead(m){P.alive=0;P.dt=0;endG()},
 end(m){if(ONL&&ph!='end')endG();ONL=0;bt.style.display='none'}};
+window.NETH=H;
 function conn(){ws=new WebSocket(WS);ws.onopen=()=>{rc=0;cnx='conectado';tok?tx({t:'auth',token:tok}):lgShow();top()};ws.onmessage=e=>{let m;try{m=JSON.parse(e.data)}catch(x){return}if(H[m.t])H[m.t](m)};ws.onclose=()=>{cnx='reconectando...';top();setTimeout(conn,Math.min(5000,1000*++rc))}}
 // Substituições: online, dano e vida vêm do servidor
 const oh=hurt,op=pfire,orl=rel,otm=toMenu,on_=nade,os=skill,osv=svL;
